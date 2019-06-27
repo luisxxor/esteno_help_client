@@ -1,12 +1,12 @@
 <template>
-  <div id="app">
-    <router-view></router-view>
-  </div>
+  <Home />
 </template>
 
 <script>
+  import Home from './components/Home'
   export default {
-    name: 'esteno_help_client'
+    name: 'esteno_help_client',
+    components: { Home }
   }
 </script>
 
