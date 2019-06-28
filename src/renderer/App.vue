@@ -17,14 +17,6 @@ export default {
         this.$store.dispatch('initLoad', JSON.parse(arg))
       })
 
-      ipcRenderer.on('responseAuth', (event, arg) => {
-        let { success } = JSON.parse(arg)
-        this.$store.dispatch('responseAuth', {
-          auth_dialog: !success,
-          auth_error: !success
-        })
-      })
-
       ipcRenderer.on('changeConfig', (event, arg) => {
         this.$store.dispatch('updateConfigData', {
           ...JSON.parse(arg),
@@ -36,6 +28,14 @@ export default {
 
       ipcRenderer.on('callStatusChanged', (event, arg) => {
         this.$store.dispatch('updateCallStatus', arg)
+      })
+
+      ipcRenderer.on('needAuth', (event, arg) => {
+        this.$store.dispatch('openAuth', true)
+      })
+
+      ipcRenderer.on('authFailed', (event, arg) => {
+        this.$store.dispatch('authFailed')
       })
     }
   }

@@ -18,6 +18,7 @@ export default new Vuex.Store({
     },
     calling: false,
     authDialog: false,
+    authFailed: false,
     configDialog: false,
     configLoading: false,
     snackbarShow: false,
@@ -38,6 +39,9 @@ export default new Vuex.Store({
     updateField,
     OPEN_CONFIG_DIALOG (state, payload) {
       state.configDialog = payload
+    },
+    OPEN_AUTH_DIALOG (state, payload) {
+      state.authDialog = payload
     },
     UPDATE_CONFIG_DATA (state, { machineName, role, api = null, configDialog = null }) {
       state.machineName = machineName
@@ -67,11 +71,18 @@ export default new Vuex.Store({
       state.buttonData.y = 0
       state.buttonData.w = 300
       state.buttonData.h = 150
+    },
+    FAILED_AUTH (state, payload) {
+      state.authFailed = payload
     }
   },
   actions: {
     openConfig ({ commit }, payload) {
       commit('OPEN_CONFIG_DIALOG', payload)
+    },
+    openAuth ({ dispatch, commit }, payload) {
+      dispatch('openConfig', false)
+      commit('OPEN_AUTH_DIALOG', payload)
     },
     initLoad ({ commit }, payload) {
       commit('UPDATE_CONFIG_DATA', payload)
@@ -113,6 +124,14 @@ export default new Vuex.Store({
     },
     resetButtonSizePosition ({ commit }) {
       commit('RESET_BUTTON_SIZE_POSITION')
+    },
+    authFailed ({ dispatch, commit }) {
+      dispatch('displaySnackbarMessage', 'Autenticación fallida')
+      commit('FAILED_AUTH', true)
+    },
+    sendAuth ({ commit }, payload) {
+      commit('FAILED_AUTH', false)
+      ipcRenderer.send('sendAuth', JSON.stringify(payload))
     }
   },
   plugins: [

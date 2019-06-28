@@ -15,6 +15,7 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 let mainWindow
+let auth = false
 
 // If config.json exists read it and assign to variable config, if not, assign default values
 let config = fs.existsSync('config.json')
@@ -49,8 +50,8 @@ function createWindow () {
   mainWindow.loadURL(winURL)
 
   mainWindow.on('close', (e) => {
-    e.preventDefault()
-    console.log('nope, im still alive')
+    if (auth === false) e.preventDefault()
+    if (mainWindow) mainWindow.webContents.send('needAuth')
   })
 
   mainWindow.once('ready-to-show', () => {
@@ -65,20 +66,12 @@ function createWindow () {
     socket.emit('toggleCall', arg)
   })
 
-  ipcMain.on('sendAuth', (event, arg) => {
-    socket.emit('sendAuth', arg)
-  })
-
   ipcMain.on('sendConfig', (event, arg) => {
     let newConfig = JSON.parse(arg)
     newConfig['api'] = config['api']
     console.log(newConfig)
     fs.writeFileSync('config.json', JSON.stringify(newConfig))
     event.sender.send('changeConfig', JSON.stringify(newConfig))
-  })
-
-  socket.on('responseAuth', data => {
-    mainWindow.webContents.send('responseAuth', data)
   })
 
   socket.on('callStatusChanged', data => {
@@ -100,9 +93,16 @@ if (isSecondInstance) {
 
 app.on('ready', createWindow)
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
+ipcMain.on('sendAuth', (event, arg) => {
+  let password = JSON.parse(arg)
+  if (password === 'H386') {
+    auth = true
+    mainWindow = null
+    if (process.platform !== 'darwin') {
+      app.quit()
+    }
+  } else {
+    event.sender.send('authFailed')
   }
 })
 

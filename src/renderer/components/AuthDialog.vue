@@ -5,17 +5,25 @@
     max-width="400"
   >
     <v-card>
-      <v-card-title class="headline">Ingrese la contraseña</v-card-title>
-
       <v-card-text>
-        <v-text-field v-model="password" type="password"></v-text-field>
+        <v-text-field
+          v-model="password"
+          label="Contraseña"
+          :type="showPassword ? 'text' : 'password'"
+          :append-icon="showPassword ? 'visibility_off' : 'visibility'"
+          @click:append="togglePasswordVisibility"
+          :error-messages="errorMessage"
+          :error="failed"
+          @input="failed = false"
+        >
+        </v-text-field>
       </v-card-text>
 
       <v-card-actions>
         <v-spacer></v-spacer>
 
         <v-btn
-          color="green"
+          color="red"
           flat="flat"
           @click="dialog = false"
         >
@@ -23,9 +31,9 @@
         </v-btn>
 
         <v-btn
-          color="green"
+          color="blue"
           flat="flat"
-          @click="dialog = false"
+          @click="sendAuth"
         >
           Aceptar
         </v-btn>
@@ -43,15 +51,26 @@
     store: store,
     data () {
       return {
-        password: ''
+        password: '',
+        showPassword: false
       }
     },
     computed: {
       ...mapFields({
-        dialog: 'authDialog'
-      })
+        dialog: 'authDialog',
+        failed: 'authFailed'
+      }),
+      errorMessage () {
+        return this.failed ? 'Contraseña inválida' : ''
+      }
     },
     methods: {
+      togglePasswordVisibility () {
+        this.showPassword = !this.showPassword
+      },
+      sendAuth () {
+        this.$store.dispatch('sendAuth', this.password)
+      }
     }
   }
 </script>
