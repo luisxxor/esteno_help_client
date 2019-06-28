@@ -10958,6 +10958,11 @@ void-elements@^2.0.0:
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
   integrity sha1-wGavtYK7HLQSjWDqkjkulNXp2+w=
 
+vue-draggable-resizable@^2.0.0-rc2:
+  version "2.0.0-rc2"
+  resolved "https://registry.yarnpkg.com/vue-draggable-resizable/-/vue-draggable-resizable-2.0.0-rc2.tgz#492925541eabebeb5b805b2fafb358ff27927d24"
+  integrity sha512-ctVl5elVhRT3Py1vFqCOcbdCyFdbPq9Y0SQJ/96/MWcBQ4vod2pJNwWe00BS8H2iT7hCUaUJfMcMH8200L1jmg==
+
 vue-electron@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/vue-electron/-/vue-electron-1.0.6.tgz#e798e03180b8933539defe31f92e53b9242b9406"
@@ -11033,6 +11038,11 @@ vuex-electron@^1.0.0:
   dependencies:
     deepmerge "^2.1.1"
     electron-store "^2.0.0"
+
+vuex-map-fields@^1.3.4:
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/vuex-map-fields/-/vuex-map-fields-1.3.4.tgz#63cb41117477c8d5dade2e697239428f936cf77c"
+  integrity sha512-jgrbH4id+jdFv526atAD+yOKFaLyAu9/24sdiXTedzIboSsQ5steUSaoNv2sYh0RcXaetNhFrJ1Bfgc6xam2PA==
 
 vuex@^3.0.1:
   version "3.1.1"

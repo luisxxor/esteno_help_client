@@ -15,7 +15,7 @@
         <v-spacer></v-spacer>
 
         <v-btn
-          color="green darken-1"
+          color="green"
           flat="flat"
           @click="dialog = false"
         >
@@ -23,7 +23,7 @@
         </v-btn>
 
         <v-btn
-          color="green darken-1"
+          color="green"
           flat="flat"
           @click="dialog = false"
         >
@@ -35,13 +35,21 @@
 </template>
 
 <script>
+  import store from '../store'
+  import { mapFields } from 'vuex-map-fields'
+
   export default {
     name: 'AuthDialog',
+    store: store,
     data () {
       return {
-        dialog: false,
         password: ''
       }
+    },
+    computed: {
+      ...mapFields({
+        dialog: 'authDialog'
+      })
     },
     methods: {
     }

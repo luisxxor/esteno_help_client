@@ -4,6 +4,7 @@ import { app, BrowserWindow, ipcMain } from 'electron'
 import os from 'os'
 import io from 'socket.io-client'
 import fs from 'fs'
+import getRole from '../helpers'
 
 /**
  * Set `__static` path to static files in production
@@ -47,8 +48,9 @@ function createWindow () {
 
   mainWindow.loadURL(winURL)
 
-  mainWindow.on('closed', () => {
-    mainWindow = null
+  mainWindow.on('close', (e) => {
+    e.preventDefault()
+    console.log('nope, im still alive')
   })
 
   mainWindow.once('ready-to-show', () => {
@@ -59,28 +61,8 @@ function createWindow () {
     mainWindow.webContents.send('readyReply', JSON.stringify(config))
   })
 
-  ipcMain.on('call_support', (event, arg) => {
-    event.sender.send('iscallingsupport', 'yes')
-    socket.emit(
-      'toggleCall',
-      JSON.stringify({
-        calling: true,
-        role: config.role,
-        machineName: config.machineName
-      })
-    )
-  })
-
-  ipcMain.on('clear_call', (event, arg) => {
-    event.sender.send('iscallingsupport', 'no')
-    socket.emit(
-      'toggleCall',
-      JSON.stringify({
-        calling: false,
-        role: config.role,
-        machineName: config.machineName
-      })
-    )
+  ipcMain.on('toggleCall', (event, arg) => {
+    socket.emit('toggleCall', arg)
   })
 
   ipcMain.on('sendAuth', (event, arg) => {
@@ -88,19 +70,19 @@ function createWindow () {
   })
 
   ipcMain.on('sendConfig', (event, arg) => {
-    let { machineName } = JSON.parse(arg)
-    let role = getRole(machineName)
-    config = { machineName: machineName, role: role }
-    fs.writeFileSync('config.json', JSON.stringify(config))
-    event.sender.send('changeConfig', JSON.stringify(config))
-  })
-
-  ipcMain.on('askForConfig', (event, arg) => {
-    event.sender.send('responseConfig', JSON.stringify(config))
+    let newConfig = JSON.parse(arg)
+    newConfig['api'] = config['api']
+    console.log(newConfig)
+    fs.writeFileSync('config.json', JSON.stringify(newConfig))
+    event.sender.send('changeConfig', JSON.stringify(newConfig))
   })
 
   socket.on('responseAuth', data => {
     mainWindow.webContents.send('responseAuth', data)
+  })
+
+  socket.on('callStatusChanged', data => {
+    mainWindow.webContents.send('callStatusChanged', JSON.parse(data))
   })
 }
 
@@ -129,26 +111,6 @@ app.on('activate', () => {
     createWindow()
   }
 })
-
-function getRole (machineName = os.hostname()) {
-  let digitador = /^(pcd[0-9]*)$/i
-  let estenotipista = /^(pce[0-9]+)$/i
-  let traduccion = /^(pctrad[0-9]+)$/i
-  let cabina = /^(pccab[0-9]+)$/i
-  let role = ''
-
-  if (digitador.test(machineName)) {
-    role = 'Digitador'
-  } else if (estenotipista.test(machineName)) {
-    role = 'Estenotipista'
-  } else if (traduccion.test(machineName)) {
-    role = 'Traducción'
-  } else if (cabina.test(machineName)) {
-    role = 'Cabina'
-  }
-
-  return role
-}
 
 /**
  * Auto Updater

@@ -1,0 +1,249 @@
+  html {
+    overflow-y: hidden!important;
+  }
+  
+  body {
+    background-color: #222222 !important;
+    color: white;
+    margin: 0;
+  }
+  
+  .app > .application--wrap {
+    padding: 1.5em;
+    height: calc(100vh - 3em);
+    width: calc(100vw - 3em);
+    margin: auto;
+  }
+  
+  p {
+    margin: 0;
+    font-family: "Open Sans", sans-serif;
+  }
+  
+  #identifier {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  #identifier > span {
+    font-family: "Open Sans", sans-serif;
+    font-size: 12px;
+    user-select: none;
+  }
+  
+  button {
+    font-family: "Open Sans", sans-serif;
+  }
+  
+
+  .baseMiniButton {
+    text-align: center;
+    position: fixed;
+    bottom: 5px;
+  }
+
+  .baseMiniButton.left {
+    left: 4px;
+  }
+
+  .baseMiniButton.right {
+    right: 4px;
+  }
+
+  .draggable {
+    cursor: move;
+  }
+
+  .baseMiniButton.center {
+    bottom: 10px!important;
+    left: calc((400px - 157.77px)/2);
+  }
+  
+  .baseMiniButton > i {
+    color: #f2f2f2;
+    opacity: 0.3;
+    cursor: pointer;
+    transition: 0.5s all;
+  }
+  
+  #config_button > i:hover {
+    color: #ffffff;
+    opacity: 1;
+    transform: rotate(45deg) scale(1.2);
+  }
+  
+  #config_button.editing > i:hover {
+    color: #f2f2f2!important;
+    opacity: 0.3!important;
+    cursor: not-allowed!important;
+    transform: none!important;
+  }
+
+  #edit_button > i:hover {
+    color: #ffffff;
+    opacity: 1;
+    transform: rotate(-22deg) scale(1.2);
+  }
+
+  #need_auth {
+    position: absolute;
+    z-index: 999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: block;
+  }
+  
+  #auth_form {
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 90%;
+    width: 80%;
+    margin: 3% 10%;
+  }
+  
+  #auth_form > * {
+    color: black;
+    flex: 1 0 100%;
+  }
+  
+  #auth_form > span {
+    text-align: center;
+  }
+  
+  #auth_form > input[type="password"] {
+    margin: 0 20px;
+    padding: 0;
+    flex: 1 0 5% !important;
+    border-radius: 7px;
+    border: 1px solid #222222;
+    text-align: center;
+    letter-spacing: 3px;
+  }
+  
+  div[role="dialog"] * {
+    overflow: hidden;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    height: 181px;
+    width: -webkit-fill-available;
+    margin-top: 1em;
+  }
+
+  .baseCallButton {
+    margin: 0!important;
+    width: 300px;
+    height: 150px;
+    color: white !important;
+  }
+
+  .disable {
+    pointer-events: none!important;
+  }
+
+  .vdr.active {
+    touch-action: none;
+    border: 1px dashed #000;
+    border-top-color: rgb(0, 0, 0);
+    border-top-style: dashed;
+    border-top-width: 1px;
+    border-right-color: rgb(0, 0, 0);
+    border-right-style: dashed;
+    border-right-width: 1px;
+    border-bottom-color: rgb(0, 0, 0);
+    border-bottom-style: dashed;
+    border-bottom-width: 1px;
+    border-left-color: rgb(0, 0, 0);
+    border-left-style: dashed;
+    border-left-width: 1px;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+  }
+
+  .vdr {
+    touch-action: auto!important;
+    border: none!important;
+  }
+
+  .baseCallButton > button {
+    margin: 0!important;
+    width: 100%;
+    height: 100%;
+  }
+  
+  #isAlreadyCalling {
+    background: linear-gradient(92deg, #e73636, #1271f5);
+    background-size: 400% 400%;
+  
+    -webkit-animation: callingSupport 4s ease infinite;
+    -moz-animation: callingSupport 4s ease infinite;
+    animation: callingSupport 4s ease infinite;
+  }
+  
+  #isAlreadyCalling:hover {
+    transition: 1s ease;
+    transform: scale(0.9);
+  }
+  
+  .loadingText:after {
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+    -webkit-animation: ellipsis steps(4, end) 900ms infinite;
+    animation: ellipsis steps(4, end) 900ms infinite;
+    content: "\2026";
+    width: 0px;
+  }
+  
+  @keyframes ellipsis {
+    to {
+      width: 0.9em;
+    }
+  }
+  
+  @-webkit-keyframes callingSupport {
+    0% {
+      background-position: 0% 50%;
+    }
+    25% {
+      background-position: 100% 51%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  @-moz-keyframes callingSupport {
+    0% {
+      background-position: 0% 50%;
+    }
+    25% {
+      background-position: 100% 51%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  @keyframes callingSupport {
+    0% {
+      background-position: 0% 50%;
+    }
+    25% {
+      background-position: 100% 51%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  

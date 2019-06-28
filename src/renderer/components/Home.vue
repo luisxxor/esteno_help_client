@@ -1,28 +1,59 @@
 <template>
-  <v-app>
+  <v-app dark class="app">
     <div id="identifier">
-      <span id="role">{{role}}</span>
-      <span id="machine_name">{{machine_name}}</span>
+      <span id="role">{{ role }}</span>
+      <span id="machineName">{{ machineName }}</span>
     </div>
     <ButtonCall />
-    <div id="config_button">
-      <v-icon @click="openConfig">settings</v-icon>
+     
+    <div class="baseMiniButton left" id="edit_button">
+      <v-btn
+        dark
+        fab
+        small
+        @click="toggleEdit"
+      >
+        <v-icon>{{ editingButton ? 'done' : 'edit' }}</v-icon>
+      </v-btn>
+    </div>
+    <div class="baseMiniButton center">
+      <v-btn
+        v-show="editingButton"
+        small
+        dark
+        color="blue"
+        @click="resetButtonSizePosition"
+      >
+        Resetear boton
+      </v-btn>
+    </div>
+    <div class="baseMiniButton right" id="config_button">
+      <v-btn
+        v-show="!editingButton"
+        dark
+        fab
+        small
+        @click="openConfig"
+        :disable="editingButton"
+      >
+        <v-icon>settings</v-icon>
+      </v-btn>
     </div>
 
     <AuthDialog/>
     <ConfigDialog/>
 
     <v-snackbar
-      v-model="snackbar_show"
+      v-model="snackbarShow"
       :left="true"
       :top="true"
       :timeout="3000"
     >
-      {{ snackbar_message }}
+      {{ snackbarMessage }}
       <v-btn
-        color="pink"
+        color="white"
         flat
-        @click="snackbar = false"
+        @click="snackbarShow = false"
       >
         <v-icon>cancel</v-icon>
       </v-btn>
@@ -32,6 +63,7 @@
 </template>
 
 <script>
+  import { mapFields } from 'vuex-map-fields'
   import AuthDialog from './AuthDialog'
   import ButtonCall from './ButtonCall'
   import ConfigDialog from './ConfigDialog'
@@ -43,13 +75,29 @@
       ButtonCall,
       ConfigDialog
     },
-    data () {
-      return {
-        snackbar_show: false,
-        snackbar_message: ''
-      }
+    computed: {
+      ...mapFields([
+        'machineName',
+        'role',
+        'snackbarShow',
+        'snackbarMessage',
+        'editingButton'
+      ])
     },
     methods: {
+      openConfig () {
+        if (!this.editingButton) {
+          this.$store.dispatch('openConfig', true)
+        }
+      },
+      toggleEdit () {
+        this.editingButton = !this.editingButton
+      },
+      resetButtonSizePosition () {
+        this.$store.dispatch('resetButtonSizePosition')
+      }
+    },
+    mounted () {
     }
   }
 </script>
