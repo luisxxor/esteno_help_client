@@ -7,7 +7,7 @@
     <v-card>
       <v-card-text>
         <v-text-field :error="error.length > 0" disabled :value="role" label="Tipo de Captioner"></v-text-field>
-        <v-text-field :error-messages="error" :disabled="calling" v-model="machineName" label="Nombre del equipo"></v-text-field>
+        <v-text-field @keyup.enter.native="saveData" :error-messages="error" :disabled="calling" v-model="machineName" label="Nombre del equipo"></v-text-field>
       </v-card-text>
 
       <v-card-actions>
@@ -59,7 +59,7 @@
         return getRole(this.machineName)
       },
       error () {
-        return this.role === '' ? 'El nombre de equipo es inválido' : ''
+        return this.machineName.trim().length === 0 ? 'El nombre de equipo no puede estar vacío' : ''
       }
     },
     watch: {
@@ -75,10 +75,12 @@
         this.machineName = ''
       },
       saveData () {
-        this.$store.dispatch('saveConfig', {
-          machineName: this.machineName,
-          role: getRole(this.machineName)
-        })
+        if (!this.error.length > 0 && !this.calling) {
+          this.$store.dispatch('saveConfig', {
+            machineName: this.machineName,
+            role: getRole(this.machineName)
+          })
+        }
       }
     }
   }

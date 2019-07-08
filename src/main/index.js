@@ -20,7 +20,7 @@ let auth = false
 // If config.json exists read it and assign to variable config, if not, assign default values
 let config = fs.existsSync('config.json')
   ? JSON.parse(fs.readFileSync('config.json'))
-  : { role: getRole(), machineName: os.hostname(), api: {host: 'localhost', port: '8000', extra: 'client'} }
+  : { role: getRole(), machineName: os.hostname(), api: {host: 'ts.esteno.cl', port: '8080', extra: 'client'} }
 
 // Also, if not exists, create it with default values
 if (!fs.existsSync('config.json')) {
@@ -39,15 +39,19 @@ function createWindow () {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    width: 400,
-    height: 300,
+    width: 300,
+    height: 150,
     frame: true,
     transparent: false,
     show: false,
-    useContentSize: true
+    useContentSize: false
   })
 
   mainWindow.loadURL(winURL)
+  mainWindow.setMenu(null)
+  mainWindow.setResizable(true)
+  mainWindow.setMinimumSize(300, 150)
+  mainWindow.setMaximumSize(600, 300)
 
   mainWindow.on('close', (e) => {
     if (auth === false) e.preventDefault()
@@ -95,7 +99,7 @@ app.on('ready', createWindow)
 
 ipcMain.on('sendAuth', (event, arg) => {
   let password = JSON.parse(arg)
-  if (password === 'H386') {
+  if (password === 'h680') {
     auth = true
     mainWindow = null
     if (process.platform !== 'darwin') {

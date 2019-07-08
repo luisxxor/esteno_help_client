@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "author": "Luis Portillo <luisxxor@gmail.com>",
   "description": "Esteno HELP electron client",
-  "license": null,
+  "license": "MIT",
   "main": "./dist/electron/main.js",
   "scripts": {
     "build": "node .electron-vue/build.js && electron-builder",
@@ -22,7 +22,7 @@
     "postinstall": "npm run lint:fix"
   },
   "build": {
-    "productName": "esteno_help_client",
+    "productName": "Esteno Help Client",
     "appId": "com.esteno.help_client",
     "directories": {
       "output": "build"

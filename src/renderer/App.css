@@ -9,9 +9,9 @@
   }
   
   .app > .application--wrap {
-    padding: 1.5em;
-    height: calc(100vh - 3em);
-    width: calc(100vw - 3em);
+    padding: 0.5em;
+    height: calc(100vh - 1em);
+    width: calc(100vw - 1em);
     margin: auto;
   }
   
@@ -38,12 +38,8 @@
 
   .baseMiniButton {
     text-align: center;
-    position: fixed;
+    position: absolute;
     bottom: 5px;
-  }
-
-  .baseMiniButton.left {
-    left: 4px;
   }
 
   .baseMiniButton.right {
@@ -53,17 +49,16 @@
   .draggable {
     cursor: move;
   }
-
-  .baseMiniButton.center {
-    bottom: 10px!important;
-    left: calc((400px - 157.77px)/2);
-  }
   
   .baseMiniButton > i {
     color: #f2f2f2;
     opacity: 0.3;
     cursor: pointer;
     transition: 0.5s all;
+  }
+
+  #config_button {
+    bottom: -4px;
   }
   
   #config_button > i:hover {
@@ -77,12 +72,6 @@
     opacity: 0.3!important;
     cursor: not-allowed!important;
     transform: none!important;
-  }
-
-  #edit_button > i:hover {
-    color: #ffffff;
-    opacity: 1;
-    transform: rotate(-22deg) scale(1.2);
   }
 
   #need_auth {
@@ -140,47 +129,10 @@
   }
 
   .baseCallButton {
-    margin: 0!important;
-    width: 300px;
-    height: 150px;
-    color: white !important;
-  }
-
-  .disable {
-    pointer-events: none!important;
-  }
-
-  .vdr.active {
-    touch-action: none;
-    border: 1px dashed #000;
-    border-top-color: rgb(0, 0, 0);
-    border-top-style: dashed;
-    border-top-width: 1px;
-    border-right-color: rgb(0, 0, 0);
-    border-right-style: dashed;
-    border-right-width: 1px;
-    border-bottom-color: rgb(0, 0, 0);
-    border-bottom-style: dashed;
-    border-bottom-width: 1px;
-    border-left-color: rgb(0, 0, 0);
-    border-left-style: dashed;
-    border-left-width: 1px;
-    border-image-source: initial;
-    border-image-slice: initial;
-    border-image-width: initial;
-    border-image-outset: initial;
-    border-image-repeat: initial;
-  }
-
-  .vdr {
-    touch-action: auto!important;
-    border: none!important;
-  }
-
-  .baseCallButton > button {
-    margin: 0!important;
     width: 100%;
-    height: 100%;
+    color: white !important;
+    margin: 10px 0 1em 0!important;
+    height: calc(100% - (4em + 10px))!important;
   }
   
   #isAlreadyCalling {

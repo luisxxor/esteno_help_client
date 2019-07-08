@@ -5,36 +5,13 @@
       <span id="machineName">{{ machineName }}</span>
     </div>
     <ButtonCall />
-     
-    <div class="baseMiniButton left" id="edit_button">
-      <v-btn
-        dark
-        fab
-        small
-        @click="toggleEdit"
-      >
-        <v-icon>{{ editingButton ? 'done' : 'edit' }}</v-icon>
-      </v-btn>
-    </div>
-    <div class="baseMiniButton center">
-      <v-btn
-        v-show="editingButton"
-        small
-        dark
-        color="blue"
-        @click="resetButtonSizePosition"
-      >
-        Resetear boton
-      </v-btn>
-    </div>
+
     <div class="baseMiniButton right" id="config_button">
       <v-btn
-        v-show="!editingButton"
         dark
         fab
         small
         @click="openConfig"
-        :disable="editingButton"
       >
         <v-icon>settings</v-icon>
       </v-btn>
@@ -47,7 +24,8 @@
       v-model="snackbarShow"
       :left="true"
       :top="true"
-      :timeout="3000"
+      :timeout="30000"
+      id="snackbar"
     >
       {{ snackbarMessage }}
       <v-btn
@@ -80,21 +58,12 @@
         'machineName',
         'role',
         'snackbarShow',
-        'snackbarMessage',
-        'editingButton'
+        'snackbarMessage'
       ])
     },
     methods: {
       openConfig () {
-        if (!this.editingButton) {
-          this.$store.dispatch('openConfig', true)
-        }
-      },
-      toggleEdit () {
-        this.editingButton = !this.editingButton
-      },
-      resetButtonSizePosition () {
-        this.$store.dispatch('resetButtonSizePosition')
+        this.$store.dispatch('openConfig', true)
       }
     },
     mounted () {
@@ -103,4 +72,11 @@
 </script>
 
 <style>
+#snackbar {
+  height: 30px!important;
+}
+
+.v-snack__content {
+  height: 30px!important;
+}
 </style>

@@ -15,6 +15,7 @@
           :error-messages="errorMessage"
           :error="failed"
           @input="failed = false"
+          @keyup.enter.native="sendAuth"
         >
         </v-text-field>
       </v-card-text>

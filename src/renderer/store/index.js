@@ -23,14 +23,7 @@ export default new Vuex.Store({
     configLoading: false,
     snackbarShow: false,
     snackbarMessage: '',
-    callStatusLoading: false,
-    editingButton: false,
-    buttonData: {
-      x: 29,
-      y: 0,
-      w: 300,
-      h: 150
-    }
+    callStatusLoading: false
   },
   getters: {
     getField
@@ -63,15 +56,6 @@ export default new Vuex.Store({
     UPDATE_CALL_STATUS (state, payload) {
       state.calling = payload
     },
-    TOGGLE_EDIT_BUTTON (state) {
-      state.editingButton = !state.editingButton
-    },
-    RESET_BUTTON_SIZE_POSITION (state) {
-      state.buttonData.x = 29
-      state.buttonData.y = 0
-      state.buttonData.w = 300
-      state.buttonData.h = 150
-    },
     FAILED_AUTH (state, payload) {
       state.authFailed = payload
     }
@@ -103,7 +87,7 @@ export default new Vuex.Store({
     },
     updateCall ({ dispatch, commit, state }, payload) {
       commit('CALL_STATUS_LOADING', true)
-      dispatch('displaySnackbarMessage', 'Conectando al servidor...')
+      dispatch('displaySnackbarMessage', 'Conectando...')
       ipcRenderer.send(
         'toggleCall', JSON.stringify({
           role: state.role,
@@ -115,15 +99,9 @@ export default new Vuex.Store({
     updateCallStatus ({ dispatch, commit }, payload) {
       commit('CALL_STATUS_LOADING', false)
       commit('UPDATE_CALL_STATUS', payload)
-      let message = payload ? 'Conectado al servidor. Realizando llamada...' : 'Se ha cerrado la llamada correctamente.'
+      let message = payload ? 'Realizando llamada' : 'Llamada finalizada'
 
       dispatch('displaySnackbarMessage', message)
-    },
-    toggleEditButton ({ commit }) {
-      commit('TOGGLE_EDIT_BUTTON')
-    },
-    resetButtonSizePosition ({ commit }) {
-      commit('RESET_BUTTON_SIZE_POSITION')
     },
     authFailed ({ dispatch, commit }) {
       dispatch('displaySnackbarMessage', 'Autenticación fallida')

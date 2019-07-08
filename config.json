@@ -1,1 +1,1 @@
-{"machineName":"PCD12","role":"Digitador","api":{"host":"192.168.0.100","port":"8000","extra":"client"}}
+{"machineName":"PCD11","role":"Digitador","api":{"host":"127.0.0.1","port":"8080","extra":"client"}}
