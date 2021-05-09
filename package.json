@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "vue": "^2.5.16",
     "vue-draggable-resizable": "^2.0.0-rc2",
     "vue-electron": "^1.0.6",
